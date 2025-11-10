@@ -36,21 +36,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - LibraryHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --accent: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --dark: #0f172a;
-            --gray: #64748b;
-            --light: #f8fafc;
-            --border: #e2e8f0;
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --primary-light: #818CF8;
+            --secondary: #06B6D4;
+            --accent: #EC4899;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #1E293B;
+            --gray-900: #0F172A;
+            --gray-800: #1E293B;
+            --gray-700: #334155;
+            --gray-600: #475569;
+            --gray-500: #64748B;
+            --gray-400: #94A3B8;
+            --gray-300: #CBD5E1;
+            --gray-200: #E2E8F0;
+            --gray-100: #F1F5F9;
+            --gray-50: #F8FAFC;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         * {
@@ -60,102 +76,113 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: var(--dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 50%, #F1F5F9 100%);
+            color: var(--gray-900);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        body::before {
-            content: '';
+        /* Animated Background Elements */
+        .bg-decoration {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
-            pointer-events: none;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        /* Floating particles */
-        .particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
             pointer-events: none;
-            animation: float 20s infinite;
+            z-index: 0;
+        }
+
+        .bg-decoration-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+            top: -300px;
+            right: -200px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-decoration-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.06) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        .bg-decoration-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.07) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 10s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0) scale(1);
-                opacity: 0;
-            }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% {
-                transform: translateY(-100vh) translateX(50px) scale(0.5);
-                opacity: 0;
-            }
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
         }
 
         /* Navbar */
         .navbar {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 1rem clamp(1rem, 5vw, 3rem);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
         }
 
         .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.98);
         }
 
         .navbar-brand {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateX(-5px);
         }
 
         .logo-container {
             position: relative;
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
         }
 
         .logo-mini {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 14px;
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.75rem;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
         }
@@ -179,125 +206,126 @@
 
         .logo-mini:hover {
             transform: rotate(360deg) scale(1.1);
-            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.6);
-        }
-
-        .navbar-brand a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .navbar-brand a:hover {
-            opacity: 0.9;
+            box-shadow: var(--shadow-xl);
         }
 
         .navbar-brand h1 {
-            font-size: clamp(1.25rem, 3vw, 1.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #fff, #f0f0f0);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.03em;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin: 0;
         }
 
         .navbar-user {
             display: flex;
             align-items: center;
-            gap: clamp(0.75rem, 2vw, 1.5rem);
+            gap: 1.5rem;
         }
 
-        .user-greeting {
+        .user-info {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.875rem;
             padding: 0.625rem 1.25rem;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
             border-radius: 50px;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
-        .user-greeting:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
+        .user-info:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #ec4899, #f472b6);
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.25rem;
-            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
-            animation: avatarPulse 2s ease-in-out infinite;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
         }
 
-        @keyframes avatarPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .user-info:hover .user-avatar {
+            transform: scale(1.1);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
         }
 
         .user-name {
             font-weight: 700;
-            color: white;
-            font-size: clamp(0.875rem, 2vw, 1rem);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: var(--gray-900);
+            font-size: 0.9375rem;
+            line-height: 1.2;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .logout-btn {
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem 1.75rem;
+            background: var(--white);
+            border: 2px solid var(--gray-300);
             border-radius: 50px;
-            color: white;
+            color: var(--gray-700);
             text-decoration: none;
             font-weight: 700;
             font-size: 0.9375rem;
             transition: all 0.3s ease;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
         }
 
         .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.9);
-            border-color: rgba(239, 68, 68, 1);
+            background: var(--danger);
+            border-color: var(--danger);
+            color: var(--white);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Dashboard Container */
         .dashboard-container {
-            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 5vw, 3rem);
+            padding: 2.5rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        /* Welcome Panel */
-        .welcome-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        /* Welcome Section */
+        .welcome-section {
+            background: var(--white);
             border-radius: 24px;
-            padding: clamp(2rem, 5vw, 3rem);
-            margin-bottom: clamp(2rem, 4vw, 3rem);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--gray-200);
             animation: slideDown 0.6s ease-out;
         }
 
@@ -312,81 +340,190 @@
             }
         }
 
-        .welcome-panel::before {
+        .welcome-section::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 10s ease-in-out infinite;
-        }
-
-        .welcome-panel::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
+            top: 0;
+            right: 0;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 12s ease-in-out infinite reverse;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
 
-        .welcome-panel h2 {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.75rem;
             letter-spacing: -0.03em;
-            position: relative;
-            z-index: 1;
+            line-height: 1.2;
         }
 
-        .welcome-panel p {
-            color: var(--gray);
-            font-size: clamp(1rem, 2vw, 1.125rem);
+        .welcome-subtitle {
+            color: var(--gray-600);
+            font-size: 1.125rem;
             font-weight: 500;
-            position: relative;
-            z-index: 1;
+            line-height: 1.6;
         }
 
-        /* Stats Bar */
-        .stats-bar {
+        /* Enrollment Banner */
+        .enrollment-banner {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 50%, #FCD34D 100%);
+            border: 2px solid #F59E0B;
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-xl);
+            animation: slideDown 0.6s ease-out 0.2s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enrollment-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .enrollment-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .enrollment-left {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .enrollment-icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .enrollment-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .enrollment-text {
+            color: var(--gray-700);
+            font-size: 1.0625rem;
+            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .enrollment-benefits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .benefit-badge {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: var(--gray-800);
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .enrollment-btn {
+            padding: 1.125rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.0625rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .enrollment-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-            gap: clamp(1rem, 3vw, 1.5rem);
-            margin-bottom: clamp(2rem, 4vw, 3rem);
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: var(--white);
+            border: 1px solid var(--gray-200);
             border-radius: 20px;
-            padding: clamp(1.5rem, 3vw, 2.5rem);
-            text-align: center;
+            padding: 2rem;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            animation: popIn 0.5s ease-out backwards;
+            animation: fadeInUp 0.6s ease-out backwards;
+            box-shadow: var(--shadow);
         }
 
-        @keyframes popIn {
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .stat-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: scale(0.8) translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: translateY(0);
             }
         }
 
@@ -397,7 +534,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.05), transparent);
             transition: left 0.5s ease;
         }
 
@@ -406,86 +543,137 @@
         }
 
         .stat-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
-            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
         }
 
-        .stat-card:nth-child(1) { animation-delay: 0.1s; }
-        .stat-card:nth-child(2) { animation-delay: 0.2s; }
-        .stat-card:nth-child(3) { animation-delay: 0.3s; }
-        .stat-card:nth-child(4) { animation-delay: 0.4s; }
-        .stat-card:nth-child(5) { animation-delay: 0.5s; }
-
-        .stat-icon {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 1rem;
-            display: inline-block;
-            animation: bounce 2s ease-in-out infinite;
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .stat-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            transition: all 0.3s ease;
         }
 
-        .stat-number {
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
+        .stat-card:hover .stat-icon-wrapper {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .stat-icon-books { background: linear-gradient(135deg, #EFF6FF, #DBEAFE); color: var(--primary); }
+        .stat-icon-loans { background: linear-gradient(135deg, #F0FDF4, #DCFCE7); color: var(--success); }
+        .stat-icon-fines { background: linear-gradient(135deg, #FEF2F2, #FEE2E2); color: var(--danger); }
+        .stat-icon-reservations { background: linear-gradient(135deg, #FDF4FF, #FCE7F3); color: var(--accent); }
+        .stat-icon-wallet { background: linear-gradient(135deg, #ECFEFF, #CFFAFE); color: var(--secondary); }
+
+        .stat-value {
+            font-size: 2.75rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #667eea, #764ba2, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--gray-900);
             margin-bottom: 0.5rem;
             letter-spacing: -0.03em;
-            display: block;
+            line-height: 1;
         }
 
         .stat-label {
-            color: var(--gray);
-            font-size: clamp(0.875rem, 2vw, 1rem);
-            font-weight: 700;
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
         }
 
-        /* Action Grid */
-        .action-grid {
+        /* Wallet Card Special Styling */
+        .wallet-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        .wallet-card .stat-icon-wrapper {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+        }
+
+        .wallet-card .stat-value {
+            color: var(--white);
+        }
+
+        .wallet-card .stat-label {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .wallet-pending {
+            margin-top: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .wallet-cta {
+            margin-top: 1rem;
+            padding: 0.625rem 1.25rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .wallet-card:hover .wallet-cta {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Action Cards Grid */
+        .action-cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-            gap: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: clamp(2rem, 4vw, 3rem);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .action-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: var(--white);
+            border: 1px solid var(--gray-200);
             border-radius: 24px;
-            padding: clamp(2rem, 4vw, 3rem);
+            padding: 2.5rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             overflow: hidden;
             animation: fadeInUp 0.6s ease-out backwards;
+            box-shadow: var(--shadow);
         }
 
         .action-card:nth-child(1) { animation-delay: 0.2s; }
         .action-card:nth-child(2) { animation-delay: 0.3s; }
         .action-card:nth-child(3) { animation-delay: 0.4s; }
         .action-card:nth-child(4) { animation-delay: 0.5s; }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
         .action-card::before {
             content: '';
@@ -494,7 +682,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
             transition: transform 0.6s ease;
         }
 
@@ -503,28 +691,28 @@
         }
 
         .action-card:hover {
-            transform: translateY(-15px) rotate(-2deg);
-            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4);
-            border-color: rgba(102, 126, 234, 0.6);
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-2xl);
+            border-color: var(--primary-light);
         }
 
-        .card-icon-box {
-            width: clamp(80px, 18vw, 100px);
-            height: clamp(80px, 18vw, 100px);
+        .action-icon-box {
+            width: 100px;
+            height: 100px;
             margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-size: 3rem;
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
         }
 
-        .card-icon-box::before {
+        .action-icon-box::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -541,16 +729,16 @@
             100% { transform: translateX(100%) rotate(45deg); }
         }
 
-        .action-card:hover .card-icon-box {
-            transform: scale(1.2) rotate(10deg);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.6);
+        .action-card:hover .action-icon-box {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: var(--shadow-xl);
         }
 
         .action-card h3 {
-            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            font-size: 1.375rem;
             font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 1rem;
+            color: var(--gray-900);
+            margin-bottom: 0.875rem;
             letter-spacing: -0.02em;
             transition: all 0.3s ease;
             position: relative;
@@ -558,89 +746,69 @@
         }
 
         .action-card:hover h3 {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            transform: scale(1.05);
         }
 
         .action-card p {
-            color: var(--gray);
-            font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+            color: var(--gray-600);
+            font-size: 1rem;
             line-height: 1.7;
             font-weight: 500;
             position: relative;
             z-index: 1;
         }
 
-        /* Quick Actions */
-        .quick-actions {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        /* Quick Actions Section */
+        .quick-actions-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
             border-radius: 24px;
-            padding: clamp(2rem, 4vw, 3rem);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
             animation: fadeInUp 0.6s ease-out 0.6s backwards;
-            position: relative;
-            overflow: hidden;
         }
 
-        .quick-actions::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
-            animation: float 15s ease-in-out infinite;
-        }
-
-        .quick-actions h3 {
-            font-size: clamp(1.25rem, 3vw, 1.5rem);
+        .section-title {
+            font-size: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #ec4899);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
             letter-spacing: -0.02em;
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            position: relative;
-            z-index: 1;
         }
 
-        .quick-actions h3::before {
-            content: '⚡';
+        .section-title-icon {
             font-size: 2rem;
             animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.15); }
         }
 
-        .quick-btn-grid {
+        .quick-actions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.25rem;
-            position: relative;
-            z-index: 1;
         }
 
-        .quick-btn {
+        .quick-action-btn {
             padding: 1.25rem 1.5rem;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border: 2px solid rgba(102, 126, 234, 0.3);
+            background: linear-gradient(135deg, var(--gray-50), var(--white));
+            border: 2px solid var(--gray-200);
             border-radius: 16px;
-            color: var(--dark);
+            color: var(--gray-800);
             font-weight: 700;
-            font-size: clamp(0.9375rem, 2vw, 1rem);
+            font-size: 0.9375rem;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             text-decoration: none;
@@ -651,9 +819,10 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
-        .quick-btn::before {
+        .quick-action-btn::before {
             content: '';
             position: absolute;
             top: 50%;
@@ -661,64 +830,109 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             transform: translate(-50%, -50%);
             transition: width 0.4s ease, height 0.4s ease;
             z-index: 0;
         }
 
-        .quick-btn:hover::before {
+        .quick-action-btn:hover::before {
             width: 300%;
             height: 300%;
         }
 
-        .quick-btn:hover {
-            color: white;
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        .quick-action-btn:hover {
+            color: var(--white);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .quick-btn span {
+        .quick-action-btn span {
             position: relative;
             z-index: 1;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .user-name {
-                display: none;
+        .quick-action-btn i {
+            position: relative;
+            z-index: 1;
+            font-size: 1.25rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .welcome-title {
+                font-size: 2rem;
             }
 
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .action-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .quick-btn-grid {
-                grid-template-columns: 1fr;
+            .stat-value {
+                font-size: 2.25rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .stats-bar {
-                grid-template-columns: 1fr;
-            }
-
+        @media (max-width: 768px) {
             .navbar {
                 padding: 1rem;
             }
 
-            .user-greeting {
-                padding: 0.5rem 0.75rem;
+            .user-details {
+                display: none;
+            }
+
+            .dashboard-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .welcome-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .welcome-title {
+                font-size: 1.75rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .enrollment-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .enrollment-benefits {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar-brand h1 {
+                font-size: 1.25rem;
             }
 
             .logout-btn {
-                padding: 0.625rem 1rem;
+                padding: 0.625rem 1.25rem;
                 font-size: 0.875rem;
+            }
+
+            .logout-btn span {
+                display: none;
             }
         }
 
@@ -726,389 +940,225 @@
             scroll-behavior: smooth;
         }
 
-        /* Enrollment Banner */
-        .enrollment-banner {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-            border: 3px solid #f59e0b;
-            border-radius: 20px;
-            padding: 2rem 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.4);
-            animation: slideDown 0.6s ease-out, pulse 2s ease-in-out 1s infinite;
-            position: relative;
-            overflow: hidden;
+        /* Loading Animation */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
         }
 
-        .enrollment-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite;
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s ease;
         }
 
-        .enrollment-banner-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            position: relative;
-            z-index: 1;
-            flex-wrap: wrap;
-        }
-
-        .enrollment-banner-left {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .enrollment-banner-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        .enrollment-banner h3 {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            font-weight: 900;
-            color: white;
-            margin-bottom: 0.75rem;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            letter-spacing: -0.02em;
-        }
-
-        .enrollment-banner p {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: clamp(1rem, 2vw, 1.125rem);
-            font-weight: 500;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-        }
-
-        .enrollment-benefits {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .enrollment-benefit {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .enrollment-banner-right {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: flex-end;
-        }
-
-        .enrollment-btn {
-            padding: 1.25rem 2.5rem;
-            background: white;
-            color: #d97706;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.125rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .enrollment-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, #ffffff, #f0f0f0);
-        }
-
-        .enrollment-btn-icon {
-            font-size: 1.5rem;
-            animation: bounce 1s ease-in-out infinite;
-        }
-
-        .enrollment-dismiss {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .enrollment-dismiss:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.6);
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 20px 60px rgba(245, 158, 11, 0.4);
-            }
-            50% {
-                box-shadow: 0 20px 60px rgba(245, 158, 11, 0.6), 0 0 0 10px rgba(245, 158, 11, 0.1);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .enrollment-banner-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .enrollment-banner-right {
-                align-items: center;
-                width: 100%;
-            }
-
-            .enrollment-btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .enrollment-benefits {
-                justify-content: center;
-            }
+        .hover-lift:hover {
+            transform: translateY(-4px);
         }
     </style>
 </head>
 <body>
-    <!-- Animated particles -->
-    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 25%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
-    <div class="particle" style="left: 55%; animation-delay: 9s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
-    <div class="particle" style="left: 85%; animation-delay: 15s;"></div>
+    <!-- Background Decorations -->
+    <div class="bg-decoration bg-decoration-1"></div>
+    <div class="bg-decoration bg-decoration-2"></div>
+    <div class="bg-decoration bg-decoration-3"></div>
 
+    <!-- Navbar -->
     <nav class="navbar" id="navbar">
-        <div class="navbar-brand">
-            <a href="${pageContext.request.contextPath}/index.html">
-                <div class="logo-container">
-                    <div class="logo-mini">📚</div>
-                </div>
-                <h1>LibraryHub</h1>
-            </a>
-        </div>
-        <div class="navbar-user">
-            <div class="user-greeting">
-                <div class="user-avatar">👤</div>
-                <span class="user-name"><%= user.getUsername() %></span>
+        <a href="${pageContext.request.contextPath}/index.html" class="navbar-brand">
+            <div class="logo-container">
+                <div class="logo-mini">📚</div>
             </div>
-            <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Logout</a>
+            <h1>LibraryHub</h1>
+        </a>
+        <div class="navbar-user">
+            <div class="user-info">
+                <div class="user-avatar">👤</div>
+                <div class="user-details">
+                    <div class="user-name"><%= user.getUsername() %></div>
+                    <div class="user-role">Member</div>
+                </div>
+            </div>
+            <a href="${pageContext.request.contextPath}/logout" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
         </div>
     </nav>
 
+    <!-- Dashboard Container -->
     <div class="dashboard-container">
-        <div class="welcome-panel">
-            <h2>Welcome back, <%= user.getUsername() %>! 🎉</h2>
-            <p>Your gateway to endless knowledge and discovery</p>
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2 class="welcome-title">Welcome back, <%= user.getUsername() %>! 🎉</h2>
+                <p class="welcome-subtitle">Your gateway to endless knowledge and discovery awaits</p>
+            </div>
         </div>
 
+        <!-- Enrollment Banner (if no membership) -->
         <% if (member == null) { %>
-        <!-- Enrollment Banner - Only shows if user has no membership -->
         <div class="enrollment-banner">
-            <div class="enrollment-banner-content">
-                <div class="enrollment-banner-left">
-                    <div class="enrollment-banner-icon">🎉</div>
-                    <h3>Complete Your Library Membership!</h3>
-                    <p>You're almost there! Activate your <strong>FREE SILVER membership</strong> to start borrowing books and enjoy full library access.</p>
+            <div class="enrollment-content">
+                <div class="enrollment-left">
+                    <div class="enrollment-icon">🎉</div>
+                    <h3 class="enrollment-title">Complete Your Library Membership!</h3>
+                    <p class="enrollment-text">You're almost there! Activate your <strong>FREE SILVER membership</strong> to start borrowing books and enjoy full library access.</p>
                     <div class="enrollment-benefits">
-                        <div class="enrollment-benefit">
+                        <div class="benefit-badge">
                             <span>📚</span> 3 Books at a Time
                         </div>
-                        <div class="enrollment-benefit">
+                        <div class="benefit-badge">
                             <span>📅</span> 14-Day Borrowing
                         </div>
-                        <div class="enrollment-benefit">
+                        <div class="benefit-badge">
                             <span>💎</span> FREE - No Charges
                         </div>
                     </div>
                 </div>
-                <div class="enrollment-banner-right">
+                <div>
                     <a href="<%= request.getContextPath() %>/membershipEnrollment" class="enrollment-btn">
-                        <span class="enrollment-btn-icon">✨</span>
+                        <i class="fas fa-rocket"></i>
                         <span>Enroll Now</span>
                     </a>
-                    <small style="color: rgba(255, 255, 255, 0.9);">Takes less than 2 minutes</small>
                 </div>
             </div>
         </div>
         <% } %>
 
-        <div class="stats-bar">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon">📚</div>
-                <div class="stat-number" data-target="<%= booksBorrowed %>"><%= booksBorrowed %></div>
+                <div class="stat-header">
+                    <div class="stat-icon-wrapper stat-icon-books">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+                <div class="stat-value"><%= booksBorrowed %></div>
                 <div class="stat-label">Books Borrowed</div>
             </div>
+
             <div class="stat-card">
-                <div class="stat-icon">📖</div>
-                <div class="stat-number" data-target="<%= activeLoans %>"><%= activeLoans %></div>
+                <div class="stat-header">
+                    <div class="stat-icon-wrapper stat-icon-loans">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                </div>
+                <div class="stat-value"><%= activeLoans %></div>
                 <div class="stat-label">Active Loans</div>
             </div>
+
             <div class="stat-card">
-                <div class="stat-icon">💰</div>
-                <div class="stat-number" data-target="<%= pendingFines.doubleValue() %>">$<%= String.format("%.2f", pendingFines) %></div>
+                <div class="stat-header">
+                    <div class="stat-icon-wrapper stat-icon-fines">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                </div>
+                <div class="stat-value">$<%= String.format("%.2f", pendingFines) %></div>
                 <div class="stat-label">Pending Fines</div>
             </div>
+
             <div class="stat-card">
-                <div class="stat-icon">⭐</div>
-                <div class="stat-number" data-target="<%= reservations %>"><%= reservations %></div>
+                <div class="stat-header">
+                    <div class="stat-icon-wrapper stat-icon-reservations">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                </div>
+                <div class="stat-value"><%= reservations %></div>
                 <div class="stat-label">Reservations</div>
             </div>
-            <div class="stat-card wallet-card" onclick="location.href='${pageContext.request.contextPath}/wallet?action=topup'" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; cursor: pointer;">
-                <div class="stat-icon" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));">💳</div>
-                <div class="stat-number" style="-webkit-text-fill-color: white; color: white;">$<%= String.format("%.2f", user.getWalletBalance()) %></div>
-                <div class="stat-label" style="color: rgba(255,255,255,0.9);">Wallet Balance</div>
+
+            <div class="stat-card wallet-card" onclick="location.href='${pageContext.request.contextPath}/wallet?action=topup'">
+                <div class="stat-header">
+                    <div class="stat-icon-wrapper">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                </div>
+                <div class="stat-value">$<%= String.format("%.2f", user.getWalletBalance()) %></div>
+                <div class="stat-label">Wallet Balance</div>
                 <% if (user.getWalletPendingBalance().compareTo(BigDecimal.ZERO) > 0) { %>
-                    <div style="margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: rgba(255,255,255,0.2); border-radius: 20px; display: inline-block; font-size: 0.75rem; color: white; font-weight: 600;">
-                        ⏳ $<%= String.format("%.2f", user.getWalletPendingBalance()) %> Pending
+                    <div class="wallet-pending">
+                        <i class="fas fa-clock"></i>
+                        $<%= String.format("%.2f", user.getWalletPendingBalance()) %> Pending
                     </div>
                 <% } %>
-                <div style="margin-top: 0.75rem; font-size: 0.875rem; color: rgba(255,255,255,0.9); font-weight: 600;">
-                    <span style="background: rgba(255,255,255,0.15); padding: 0.5rem 1rem; border-radius: 8px; display: inline-block;">
-                        ➕ Click to Add Money
-                    </span>
+                <div class="wallet-cta">
+                    <i class="fas fa-plus-circle"></i>
+                    Click to Add Money
                 </div>
             </div>
         </div>
 
-        <div class="action-grid">
+        <!-- Action Cards -->
+        <div class="action-cards-grid">
             <div class="action-card" onclick="location.href='${pageContext.request.contextPath}/browseBooks'">
-                <div class="card-icon-box">📚</div>
+                <div class="action-icon-box">📚</div>
                 <h3>Browse Books</h3>
                 <p>Explore our vast collection of literature and discover your next favorite read</p>
             </div>
 
             <div class="action-card" onclick="location.href='${pageContext.request.contextPath}/myBooks'">
-                <div class="card-icon-box">📖</div>
+                <div class="action-icon-box">📖</div>
                 <h3>My Books</h3>
                 <p>Track your borrowed books and stay on top of return dates</p>
             </div>
 
             <div class="action-card" onclick="location.href='${pageContext.request.contextPath}/myFines'">
-                <div class="card-icon-box">💰</div>
+                <div class="action-icon-box">💰</div>
                 <h3>My Fines</h3>
                 <p>View and manage your outstanding library fines</p>
             </div>
 
             <div class="action-card" onclick="location.href='${pageContext.request.contextPath}/profile'">
-                <div class="card-icon-box">👤</div>
+                <div class="action-icon-box">👤</div>
                 <h3>My Profile</h3>
                 <p>Customize your account and manage preferences</p>
             </div>
         </div>
 
-        <div class="quick-actions">
-            <h3>Quick Actions</h3>
-            <div class="quick-btn-grid">
-                <a href="${pageContext.request.contextPath}/search" class="quick-btn">
-                    <span>🔍 Search Catalog</span>
+        <!-- Quick Actions Section -->
+        <div class="quick-actions-section">
+            <h3 class="section-title">
+                <span class="section-title-icon">⚡</span>
+                Quick Actions
+            </h3>
+            <div class="quick-actions-grid">
+                <a href="${pageContext.request.contextPath}/search" class="quick-action-btn">
+                    <i class="fas fa-search"></i>
+                    <span>Search Catalog</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/reservations" class="quick-btn">
-                    <span>📋 My Reservations</span>
+                <a href="${pageContext.request.contextPath}/reservations" class="quick-action-btn">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>My Reservations</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/history" class="quick-btn">
-                    <span>📊 Borrowing History</span>
+                <a href="${pageContext.request.contextPath}/history" class="quick-action-btn">
+                    <i class="fas fa-history"></i>
+                    <span>Borrowing History</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/recommendations" class="quick-btn">
-                    <span>✨ Recommendations</span>
+                <a href="${pageContext.request.contextPath}/recommendations" class="quick-action-btn">
+                    <i class="fas fa-star"></i>
+                    <span>Recommendations</span>
                 </a>
             </div>
         </div>
     </div>
 
     <script>
-        // Enhanced navbar scroll
+        // Enhanced navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 20);
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         });
 
-        // Counter animation
-        function animateValue(element, start, end, duration, isCurrency = false, prefix = '') {
-            let startTime = null;
-            
-            const step = (timestamp) => {
-                if (!startTime) startTime = timestamp;
-                const progress = Math.min((timestamp - startTime) / duration, 1);
-                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-                const current = Math.floor(easeOutCubic * (end - start) + start);
-                
-                if (isCurrency) {
-                    element.textContent = `${current}.00`;
-                } else {
-                    element.textContent = prefix + current;
-                }
-                
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                }
-            };
-            
-            requestAnimationFrame(step);
-        }
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, observerOptions);
-
-        // Initialize animations
-        document.addEventListener('DOMContentLoaded', () => {
-            // Observe animated elements
-            const animatedElements = document.querySelectorAll('.stat-card, .action-card, .quick-actions');
-            animatedElements.forEach(el => observer.observe(el));
-
-            // Example stat animations (replace with real data from backend)
-            // Uncomment when you have actual data:
-            /*
-            setTimeout(() => {
-                const statNumbers = document.querySelectorAll('.stat-number');
-                animateValue(statNumbers[0], 0, 12, 2000);
-                animateValue(statNumbers[1], 0, 3, 2000);
-                animateValue(statNumbers[2], 0, 15, 2000, true);
-                animateValue(statNumbers[3], 0, 2, 2000);
-            }, 500);
-            */
+        // Smooth entrance animation on load
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
         });
 
-        // 3D tilt effect for cards
+        // 3D tilt effect for action cards
         document.querySelectorAll('.action-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -1118,10 +1168,10 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
+                const rotateX = (y - centerY) / 15;
+                const rotateY = (centerX - x) / 15;
                 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px)`;
             });
             
             card.addEventListener('mouseleave', () => {
@@ -1130,7 +1180,7 @@
         });
 
         // Click ripple effect
-        document.querySelectorAll('.action-card, .quick-btn, .stat-card').forEach(element => {
+        document.querySelectorAll('.stat-card, .action-card, .quick-action-btn').forEach(element => {
             element.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
                 const rect = this.getBoundingClientRect();
@@ -1143,13 +1193,15 @@
                     width: ${size}px;
                     height: ${size}px;
                     border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.6);
+                    background: rgba(79, 70, 229, 0.3);
                     top: ${y}px;
                     left: ${x}px;
                     pointer-events: none;
                     animation: ripple 0.6s ease-out;
                 `;
                 
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
                 this.appendChild(ripple);
                 
                 setTimeout(() => ripple.remove(), 600);
@@ -1172,44 +1224,64 @@
         `;
         document.head.appendChild(style);
 
-        // Parallax effect for welcome panel
+        // Counter animation for stats
+        function animateCounter(element) {
+            const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = element.textContent.includes('$') 
+                        ? '$' + target.toFixed(2) 
+                        : target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = element.textContent.includes('$') 
+                        ? '$' + Math.floor(current).toFixed(2) 
+                        : Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // Initialize counter animations when stat cards come into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const valueElement = entry.target.querySelector('.stat-value');
+                    if (valueElement && !valueElement.dataset.animated) {
+                        animateCounter(valueElement);
+                        valueElement.dataset.animated = 'true';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Parallax effect for background decorations
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const welcomePanel = document.querySelector('.welcome-panel');
-            if (welcomePanel) {
-                welcomePanel.style.transform = `translateY(${scrolled * 0.3}px)`;
-            }
-        });
-
-        // Random particle positions
-        document.querySelectorAll('.particle').forEach((particle, index) => {
-            const randomDelay = Math.random() * 20;
-            const randomDuration = 15 + Math.random() * 15;
-            particle.style.animationDelay = `${randomDelay}s`;
-            particle.style.animationDuration = `${randomDuration}s`;
-            particle.style.left = `${Math.random() * 100}%`;
-        });
-
-        // Smooth card entrance on load
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
+            const decorations = document.querySelectorAll('.bg-decoration');
+            decorations.forEach((decoration, index) => {
+                const speed = (index + 1) * 0.1;
+                decoration.style.transform = `translateY(${scrolled * speed}px)`;
+            });
         });
 
         // Prevent text selection on rapid clicks
         document.querySelectorAll('.action-card, .stat-card').forEach(card => {
             card.addEventListener('mousedown', (e) => {
                 e.preventDefault();
-            });
-        });
-
-        // Enhanced hover effects for icons
-        document.querySelectorAll('.stat-icon').forEach(icon => {
-            icon.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.3) rotate(15deg)';
-            });
-            
-            icon.addEventListener('mouseleave', function() {
-                this.style.transform = '';
             });
         });
     </script>
