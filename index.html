@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - Digital Knowledge Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-50px) translateX(30px); }
+            50% { transform: translateY(-100px) translateX(-30px); }
+            75% { transform: translateY(-50px) translateX(20px); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 5%;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .book-showcase {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-card {
+            position: absolute;
+            width: 200px;
+            height: 280px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+            animation: bookFloat 6s infinite ease-in-out;
+        }
+
+        .book-card:nth-child(1) {
+            transform: rotate(-10deg) translateX(-100px);
+            z-index: 3;
+            animation-delay: 0s;
+        }
+
+        .book-card:nth-child(2) {
+            transform: rotate(5deg);
+            z-index: 4;
+            animation-delay: 2s;
+        }
+
+        .book-card:nth-child(3) {
+            transform: rotate(-5deg) translateX(100px);
+            z-index: 3;
+            animation-delay: 4s;
+        }
+
+        @keyframes bookFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .book-card:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .book-card:nth-child(2) .book-cover {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .book-card:nth-child(3) .book-cover {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .book-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .book-author {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .features {
+            padding: 5rem 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .stats {
+            padding: 3rem 5%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin: 3rem 5%;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .book-showcase {
+                height: 350px;
+            }
+
+            .book-card {
+                width: 150px;
+                height: 210px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+            <span>LibraryHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Welcome to the <span>Digital Library</span> Revolution</h1>
+                <p>Discover, explore, and manage your literary world with our advanced library management system. Access thousands of books, track your reading journey, and connect with fellow readers.</p>
+                <div class="cta-buttons">
+                    <a href="jsp/login.jsp" class="btn btn-primary">
+                        🔐 Login to Dashboard
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        📖 Explore Features
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="book-showcase">
+                    <div class="book-card">
+                        <div class="book-cover">📖</div>
+                        <div class="book-title">The Great Novel</div>
+                        <div class="book-author">Available Now</div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">📚</div>
+                        <div class="book-title">Science Fiction</div>
+                        <div class="book-author">Top Rated</div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">📕</div>
+                        <div class="book-title">Mystery Tales</div>
+                        <div class="book-author">New Arrival</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2 id="books-count">0</h2>
+                <p>Books Available</p>
+            </div>
+            <div class="stat-item">
+                <h2 id="members-count">0</h2>
+                <p>Active Members</p>
+            </div>
+            <div class="stat-item">
+                <h2 id="borrowed-count">0</h2>
+                <p>Books Borrowed</p>
+            </div>
+            <div class="stat-item">
+                <h2 id="rating-count">0</h2>
+                <p>Average Rating</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Smart Search</h3>
+                <p>Find any book instantly with our advanced search algorithm. Filter by genre, author, publication date, and more.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics Dashboard</h3>
+                <p>Track reading habits, borrowing history, and get personalized recommendations based on your preferences.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Real-time Notifications</h3>
+                <p>Never miss a due date with instant alerts for returns, reservations, and new arrivals in your favorite genres.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Digital Library Card</h3>
+                <p>Access your membership anytime, anywhere. Manage renewals and reservations with a single click.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Multi-platform Access</h3>
+                <p>Seamlessly switch between desktop, tablet, and mobile devices. Your library goes wherever you go.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3>Community Features</h3>
+                <p>Join reading clubs, share reviews, and connect with other book enthusiasts in your area.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 10 + 5 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Animate counters
+        function animateCounter(id, target, suffix = '') {
+            let current = 0;
+            const increment = target / 100;
+            const element = document.getElementById(id);
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + suffix;
+                }
+            }, 20);
+        }
+
+        // Start animations when page loads
+        window.addEventListener('load', () => {
+            animateCounter('books-count', 50000, '+');
+            animateCounter('members-count', 12500, '+');
+            animateCounter('borrowed-count', 8900, '+');
+            animateCounter('rating-count', 4.8, '⭐');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

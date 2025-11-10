@@ -1,0 +1,49 @@
+# Compiled class files
+*.class
+WEB-INF/classes/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# MySQL workbench files
+*.mwb
+*.mwb.bak
+
+# JAR files (except libraries in WEB-INF/lib - we'll keep those)
+# Note: JAR files in WEB-INF/lib are kept as they're dependencies
+
+# Environment and config files with sensitive data
+# (If you have separate config files, uncomment below)
+# config.properties
+# application.properties
+
+# Tomcat work directory
+work/
+
+# JSP compiled files
+*.jsp.java
+*.jsp.class
+
